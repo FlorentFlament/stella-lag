@@ -1,7 +1,7 @@
 main.bin: main.asm
 	dasm main.asm -f3 -omain.bin -lmain.lst -smain.sym -d
 
-run:
+run: main.bin
 	stella main.bin
 
 clean:
