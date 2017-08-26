@@ -1,9 +1,12 @@
 # Atari VCS Hello World
 
-This repository contains the simplest Atari VCS code that displays a
-picture (it actually makes the screen roll on all the available colors
-for the PAL platform). This code can be used as a starting point to
-make amazing demos for the Atari VCS platform !
+This repository contains a simple DASM based Atari VCS framework. This
+is based on the [Atari VCS Hello
+World](https://github.com/FlorentFlament/hello-vcs), but uses the RIOT
+timer to provide more freedom for the FX. Additionally, an FX
+displaying pseudo-random colors is provided as an example. This code
+is aimed at being reused as a starting point to make amazing demos for
+the Atari VCS platform !
 
 
 ## Prerequisite
@@ -32,7 +35,7 @@ make amazing demos for the Atari VCS platform !
 
 ## Files
 
-* `main.asm` is the code displaying the blinking screen.
+* `main.asm` is the code displaying the FX.
 
 * `vcs.h` is copied from DASM repository. It contains the address
   mapping of the Atari VCS RIOT and TIA registers.
