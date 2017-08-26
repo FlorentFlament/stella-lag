@@ -35,7 +35,12 @@ the Atari VCS platform !
 
 ## Files
 
-* `main.asm` is the code displaying the FX.
+* `main.asm` contains the framework, doing some initializing and
+  executing the main loop, ensuring appropriate synchronization
+  signals are sent to the TIA.
+
+* `fx.asm` is an example of FX. It consists in displaying a grid of
+  random colors changing a couple of times per second.
 
 * `vcs.h` is copied from DASM repository. It contains the address
   mapping of the Atari VCS RIOT and TIA registers.
