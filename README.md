@@ -1,4 +1,4 @@
-# Atari VCS Hello World
+# Atari VCS DASM Framework
 
 This repository contains a simple DASM based Atari VCS framework. This
 is based on the [Atari VCS Hello
