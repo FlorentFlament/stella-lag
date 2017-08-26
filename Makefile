@@ -1,4 +1,4 @@
-main.bin: main.asm
+main.bin: main.asm fx.asm
 	dasm main.asm -f3 -omain.bin -lmain.lst -smain.sym -d
 
 run: main.bin
