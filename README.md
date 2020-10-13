@@ -1,53 +1,34 @@
-# Atari VCS DASM Framework
+# Code to illustrate lag between image and sound on the Stella emulator
 
-This repository contains a simple DASM based Atari VCS framework. This
-is based on the [Atari VCS Hello
-World](https://github.com/FlorentFlament/hello-vcs), but uses the RIOT
-timer to provide more freedom for the FX. Additionally, an FX
-displaying pseudo-random colors is provided as an example. This code
-is aimed at being reused as a starting point to make amazing demos for
-the Atari VCS platform !
+* Compile `main.bin` with `make`
+* Run the code with `stella main.bin` or `make run`
 
+The code changes the background color at the same time it changes the
+audio. When the screen is white, the TIA plays white noise; when the
+screen is black, no sound should be heard.
 
-## Prerequisite
+Here's the relevant code:
 
-* This code has been written in DASM. The assembler can be downloaded
-  from [DASM project's page](http://dasm-dillon.sourceforge.net/)
+    fx_vblank SUBROUTINE
+            lda framecnt
+            and #$20
+            bne .white
+    .black:
+            lda #$00
+            jmp .color_chosen
+    .white:
+            lda #$ff
+    .color_chosen:
+            sta COLUBK
+            sta AUDV0
+            rts
 
-* An Atari VCS emulator (though binaries can be tested on the real
-  hardware instead). [Stella](https://stella-emu.github.io) is an
-  excellent emulator and debugger for the Atari 2600.
+When running `main.bin` in Stella 6.3 (stella 6.0.2 as well), I can
+experience a lag between the picture and the sound (Rough estimate
+about 50-100 ms). When running the same binary on the real hardware I
+don't see/hear any lag.
 
-* Make is needed to be able to use the Makefile. Though one can launch
-  the commands of the Makefile without using make.
-
-
-## Launching hello-vcs
-
-    $ make
-    dasm main.asm -f3 -omain.bin -lmain.lst -smain.sym -d
-    Debug trace OFF
-    
-    Complete.
-    $ make run
-    stella main.bin
-
-
-## Files
-
-* `main.asm` contains the framework, doing some initializing and
-  executing the main loop, ensuring appropriate synchronization
-  signals are sent to the TIA.
-
-* `fx.asm` is an example of FX. It consists in displaying a grid of
-  random colors changing a couple of times per second.
-
-* `vcs.h` is copied from DASM repository. It contains the address
-  mapping of the Atari VCS RIOT and TIA registers.
-
-* `macro.h` is copied from DASM repository. It contains a couple of
-  helper macros.
-
-* `Makefile`
-
-* `README.md` is this very file.
+As I don't notice any lag when playing a video on my machine, I don't
+think my OS (Linux Ubuntu 20.04) introduces it. It feels like it comes
+from the Stella emulator (Even though I selected "Ultra Quality,
+minimal lag", in the Audio Mode options).
